@@ -8,8 +8,13 @@ export const createCategory = async (req, res) => {
     if (!title) {
       return res.status(404).json({ error: `Please enter category name` });
     }
+    const isCategory = await Category.findOne({title})
+    if(isCategory) {
+      return res.status(404).json({ error: `Category already exists` });
+    }
     const user = await User.findById(req.user)
     const author = user.username
+    // console.log(author)
     const newCategory = await Category.create({ title, author });
     const category = await newCategory.save();
     res.status(200).json({ message: `Category added successfully`, category });
