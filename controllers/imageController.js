@@ -14,18 +14,19 @@ export const uploadImage = async (req, res) => {
       return res.status(404).json({ error: `Please Enter Category` });
     }
     const isCategory = await Category.findOne({ title: category });
-    const user = await User.findById(req.user._id).select("-password");
     if (!isCategory) {
       return res.status(404).json({ error: `Category not found` });
     }
+    const catTitle = isCategory.title
+    const user = await User.findById(req.user._id).select("-password");
+    const author = user.username
     const newImage = await Image.create({
       title,
       image: req.file.originalname,
-      category: isCategory.title,
+      category: catTitle,
       tags,
-      author: user.username,
+      author,
     });
-    console.log(newImage);
     const img = await newImage.save();
     await user.updateOne({ $push: { image: img } });
     await isCategory.updateOne({ $push: { image: img } });
