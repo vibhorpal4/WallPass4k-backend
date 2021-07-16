@@ -2,6 +2,7 @@ import Image from "../models/imageModel.js";
 import User from "../models/userModel.js";
 import Category from "../models/categoryModel.js";
 
+
 export const uploadImage = async (req, res) => {
   const { title, category, tags } = req.body;
   try {
@@ -20,9 +21,9 @@ export const uploadImage = async (req, res) => {
     const newImage = await Image.create({
       title,
       image: req.file.originalname,
-      category: isCategory,
+      category: isCategory.title,
       tags,
-      author: user,
+      author: user.username,
     });
     console.log(newImage);
     const img = await newImage.save();
