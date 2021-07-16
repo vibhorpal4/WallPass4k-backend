@@ -10,7 +10,6 @@ export const createCategory = async (req, res) => {
     }
     const user = await User.findById(req.user)
     const author = user.username
-    console.log(author)
     const newCategory = await Category.create({ title, author });
     const category = await newCategory.save();
     res.status(200).json({ message: `Category added successfully`, category });
