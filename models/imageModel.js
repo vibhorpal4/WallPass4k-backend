@@ -14,12 +14,12 @@ const ImageSchema = new mongoose.Schema(
       default: "",
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Category",
     },
     tags: [String],
     author: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
     },
     slug: {
