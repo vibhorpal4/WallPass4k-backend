@@ -15,7 +15,7 @@ const CategorySchema = new mongoose.Schema(
       slug: "title",
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
     },
     image: {
